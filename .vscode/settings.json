@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "sstream": "c"
+        "sstream": "c",
+        "math.h": "c",
+        "cmath": "c"
     }
 }
