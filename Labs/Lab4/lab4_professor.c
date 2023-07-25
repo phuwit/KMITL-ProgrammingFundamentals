@@ -24,7 +24,7 @@ int main()
         {
             num = num * 10 + (str[i] - '0');
         }
-        else if (lastmode == 'n' and curmode == 'c')
+        else if (lastmode == 'n' && curmode == 'c')
         {
             for (count = 0; count < num; count++)
             {
@@ -32,11 +32,11 @@ int main()
             }
             num = 1;
         }
-        else if (lastmode == 'c' and curmode == 'n')
+        else if (lastmode == 'c' && curmode == 'n')
         {
             num = str[i] - '0';
         }
-        else if (lastmode == 'c' and curmode == 'c')
+        else if (lastmode == 'c' && curmode == 'c')
         {
             printf("%c", str[i]);
             num = 1;
