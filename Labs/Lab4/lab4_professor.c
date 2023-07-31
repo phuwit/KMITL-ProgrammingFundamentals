@@ -8,11 +8,11 @@ int main()
     char str[100];
     printf("Input string : ");
     scanf("%s", str);
-    lastmode = 'n';
+    lastmode = 'c';
     num = 1;
     for (i = 0; i < strlen(str); i++)
     {
-        if (str[i] >= 'a' && str[i] <= 'z')
+        if (str[i] >= 'a' && str[i] <= 'z' || str[i] >= 'A' && str[i] <= 'Z')
         {
             curmode = 'c';
         }
