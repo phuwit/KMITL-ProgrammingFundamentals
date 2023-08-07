@@ -13,19 +13,32 @@ output : 34*/
 
 #include <stdio.h>
 
+int getFibonacciNumFromIndex (int);
+
 int main(void) {
     int n;
     scanf("%d", &n);
 
     n--;
 
-    int current = 1, last = 1;
+    int fibonacciNum = getFibonacciNumFromIndex(n);
 
-    for (int i = 2; i < n; i++) {
-        int hold = current;
-        current += last;
-        last = hold;
+    printf("%d", fibonacciNum);
+}
+
+int getFibonacciNumFromIndex (int index) {
+    if (index == -1) {
+        return 0;
     }
 
-    printf("%d", current);
+    int currentNum = 1;
+    int lastNum = 1;
+
+    for (int i = 2; i < index; i++) {
+        int hold = currentNum;
+        currentNum += lastNum;
+        lastNum = hold;
+    }
+
+    return currentNum;
 }
