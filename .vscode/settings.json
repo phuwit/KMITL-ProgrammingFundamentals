@@ -4,6 +4,7 @@
         "math.h": "c",
         "cmath": "c",
         "chrono": "c",
-        "span": "c"
+        "span": "c",
+        "stdio.h": "c"
     }
 }
