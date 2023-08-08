@@ -8,6 +8,7 @@ void erase_ship(int x,int y);
 void assignment2();
 
 const int SHIP_LENGTH = 7;
+const int SHIP_WIDTH = 1;
 const int SCREEN_WIDTH = 80;
 const int SCREEN_HEIGHT = 24;
 
@@ -19,6 +20,12 @@ int main()
 	// clear screen
 	system("cls");
 
+	// for (int i = 1; i < SCREEN_HEIGHT - SHIP_WIDTH; i++)
+	// {
+	// 	draw_ship(30, i);
+	// 	Sleep(500);
+	// }
+
 	char ch = ' ';
 	int x = 38, y = 20;
 	draw_ship(x, y);
@@ -27,12 +34,12 @@ int main()
 		if (_kbhit()) {
 			ch = _getch();
 
-			// Assignment 4
-			if(x > 0 && x < SCREEN_WIDTH - SHIP_LENGTH) erase_ship(x, y);
-
 			// Assignment 3
-			if (ch == 'a' && x > 0) { draw_ship(--x, y); }
-			if (ch == 'd' && x < SCREEN_WIDTH - SHIP_LENGTH) { draw_ship(++x, y); }
+			// Assignment 4
+			if (ch == 'a' && x > 0) { erase_ship(x, y); draw_ship(--x, y); }
+			if (ch == 'd' && x < SCREEN_WIDTH - SHIP_LENGTH) { erase_ship(x, y); draw_ship(++x, y); }
+			if (ch == 'w' && y > 0) { erase_ship(x, y); draw_ship(x, --y); }
+			if (ch == 's' && y < SCREEN_HEIGHT - SHIP_WIDTH) { erase_ship(x, y); draw_ship(x, ++y); }
 
 			fflush(stdin);
 		}
