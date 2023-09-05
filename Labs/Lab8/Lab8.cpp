@@ -48,7 +48,7 @@ int main() {
     setMode(); 
     init_star();
 
-    // assignment1();
+    assignment1();
     // Sleep(5000);
 
     // while (i < 1000) {
@@ -234,8 +234,7 @@ void assignment1() {
                 consoleBuffer[x + SCREEN_WIDTH * y].Attributes = rand() % 65535;
             }
         }
-
-        setConsole(SCREEN_WIDTH, SCREEN_HEIGHT);
+        
         fill_buffer_to_console();
     }
 }
