@@ -1,0 +1,15 @@
+{
+    "files.associations": {
+        "sstream": "c",
+        "math.h": "c",
+        "cmath": "c",
+        "chrono": "c",
+        "span": "c",
+        "stdio.h": "c",
+        "windows.h": "c"
+    },
+    "code-runner.executorMap": {
+        "c": "cd $dir && clang $fileName -o $fileNameWithoutExt.exe && start {$dir$fileNameWithoutExt.exe}",
+        "cpp": "cd $dir && clang++ $fileName -o $fileNameWithoutExt.exe && start {$dir$fileNameWithoutExt.exe}"
+    }
+}
