@@ -34,11 +34,14 @@ void star_fall();
 void draw_star_to_buffer();
 void update_ship_position(int x, int y);
 void randomize_ship_color();
+bool check_ship_collision();
 void draw_ship_to_buffer(int x, int y);
-bool check_ship_collision(int x, int y);
+void draw_health(int health, int maxHelath);
 void assignment1();
 
 int main() {
+    const int MAX_HEALTH = 10;
+    int health = MAX_HEALTH;
     int i = 0;
     srand(time(NULL));
     setConsole(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -99,6 +102,13 @@ int main() {
         draw_ship_to_buffer(shipPosition.X, shipPosition.Y);
         star_fall();
         draw_star_to_buffer();
+        if(check_ship_collision()) {
+            health--;
+            if (health <= 0) {
+                play = false;
+            }
+        }
+        draw_health(health, MAX_HEALTH);
         
         // Draw frame
         fill_buffer_to_console();
@@ -179,12 +189,41 @@ void randomize_ship_color() {
     shipColor = rand() % 65535;
 }
 
+bool check_ship_collision() {
+    int halfShipLength = SHIP_LENGTH / 2;
+    bool collision = false;
+    for (int i = -halfShipLength; i <= halfShipLength; i++) {
+        if (consoleBuffer[(shipPosition.X - i) + ((SCREEN_WIDTH * shipPosition.Y))].Char.AsciiChar == '*') {
+            collision = true;
+            break;
+        }
+    }
+    return collision;
+}
+
 void draw_ship_to_buffer(int x, int y) {
     int halfShipLength = SHIP_LENGTH / 2;
     for (int i = -halfShipLength; i <= halfShipLength; i++) {
         consoleBuffer[(x - i) + (SCREEN_WIDTH * y)].Char.AsciiChar = SHIP[i + halfShipLength];
         consoleBuffer[(x - i) + (SCREEN_WIDTH * y)].Attributes = shipColor;
     }
+}
+
+void draw_health(int health, int maxHelath) {
+    int x = characterPos.X;
+    int y = characterPos.Y;
+
+    char label[] = "Health : ";
+    int labelLength = 9;
+
+    for (int i = 0; i < labelLength; i++) {
+        consoleBuffer[(x + i) + (SCREEN_WIDTH * y)].Char.AsciiChar = label[i];
+    }
+    consoleBuffer[(x + labelLength + 1) + (SCREEN_WIDTH * y)].Char.AsciiChar = (health / 10) + '0';
+    consoleBuffer[(x + labelLength + 2) + (SCREEN_WIDTH * y)].Char.AsciiChar = (health % 10) + '0';
+    consoleBuffer[(x + labelLength + 3) + (SCREEN_WIDTH * y)].Char.AsciiChar = '/';
+    consoleBuffer[(x + labelLength + 4) + (SCREEN_WIDTH * y)].Char.AsciiChar = (maxHelath / 10) + '0';
+    consoleBuffer[(x + labelLength + 5) + (SCREEN_WIDTH * y)].Char.AsciiChar = (maxHelath % 10) + '0';
 }
 
 void assignment1() {
