@@ -3,7 +3,7 @@
 
 int main () {
     char inputString1[100];
-    printf(".\n");
+    // printf(".\n");
     scanf("%s", inputString1);
     char inputString2[100];
     scanf("%s", inputString2);
