@@ -5,6 +5,14 @@
         "cmath": "c",
         "chrono": "c",
         "span": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "string": "c",
+        "format": "c",
+        "random": "c",
+        "limits": "c",
+        "semaphore": "c",
+        "valarray": "c",
+        "algorithm": "c",
+        "array": "c"
     }
 }
