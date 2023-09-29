@@ -1,69 +1,90 @@
 /*
-  ให้นักศึกษาเขียนโปรแกรมรับ Input เป็นตัวเลขฐาน 10 แล้วแสดงผลเป็นเลขฐาน 2
+  
+เขียนโปรแกรมรับ input เป็นตัวเลข 1 ตัวแล้วแสดงผลค่าตัวเลขฐานสอง และฐานสิบหกของตัวเลขนั้น
 
-ตัวอย่าง
-input : 22
-output : 10110
+Input : 120
+Output : 
+1111000
+78
 
-input : 10
-output : 1010
+Input : 534
+Output:
+1000010110
+216
+
   */
 
 #include <stdio.h>
 #include <math.h>
 
-int DecimalToBinary (int n);
-char* DecimalToHexadecimal (int n, int powerFactor);
-char GetDigitsDecimalToHexadecimal (int n);
+void DecimalToBinary (int n, int powerFactor, char* result);
+void DecimalToHexadecimal (int n, int powerFactor, char* result);
+int GetDigitsDecimalToHexadecimal (int n);
+int GetDigitsDecimalToBinary (int n);
 
 int main () {
     int input;
     scanf("%d", &input);
 
     int hexDigits = GetDigitsDecimalToHexadecimal(input);
-    char* hexadecimal = DecimalToHexadecimal(input, hexDigits);
+    char hexadecimal[hexDigits + 1];
+    DecimalToHexadecimal(input, hexDigits, hexadecimal);
+
+    int binDigits = GetDigitsDecimalToBinary(input);
+    char binary[binDigits + 1];
+    DecimalToBinary(input, binDigits, binary);
+
+    printf("%s\n", binary);
+    printf("%s", hexadecimal);
 }
 
-int DecimalToBinary (int n) {
+void DecimalToBinary (int n, int powerFactor, char* result) {
     const int inputBase = 10, targetBase = 2;
-    int powerFactor;
-    int result;
+    int currentDigitInResult = 0;
+
+    for (int i = powerFactor; i >= 0; i--) {
+        int currentDigit = (n / (int)(pow(targetBase, i)));
+        int currentDigitValue = currentDigit * (int)(pow(targetBase, i));
+        n -= currentDigitValue;
+
+        result[currentDigitInResult] = currentDigit + '0';
+            currentDigitInResult++;
+    }
+    result[currentDigitInResult] = '\0';
+}
+
+void DecimalToHexadecimal (int n, int powerFactor, char* result) {
+    const char digitSymbols[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+    const int inputBase = 10, targetBase = 16;
+    // char* result[powerFactor];
+    int currentDigitInResult = 0;
+
+    for (int i = powerFactor; i >= 0; i--) {
+        int currentDigit = (n / (int)(pow(targetBase, i)));
+        if (currentDigit > 0) {
+            int currentDigitValue = currentDigit * (int)(pow(targetBase, i));
+            n -= currentDigitValue;
+
+            result[currentDigitInResult] = digitSymbols[currentDigit];
+            currentDigitInResult++;
+        }
+    }
+    result[currentDigitInResult] = '\0';
+}
+
+int GetDigitsDecimalToHexadecimal (int n) {
+    const int inputBase = 10, targetBase = 16;
+    int powerFactor = 0;
     while (n / (int)(pow(targetBase, powerFactor)) > 0) {
         powerFactor++;
     }
 
-    for (int i = powerFactor; i >= 0; i--) {
-        if (n / (int)(pow(targetBase, i)) > 0) {
-            result += (n / (int)(pow(targetBase, i))) * (int)(pow(10, i));
-            n -= (int)(pow(targetBase, i));
-        }
-    }
-
-    return result;
+    return powerFactor;
 }
 
-char* DecimalToHexadecimal (int n, int powerFactor) {
-    const char digitSymbols[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-    const int inputBase = 10, targetBase = 16;
-    char* result[powerFactor];
-    int currentDigit = 0, currentDigitValue;
-
-    for (int i = powerFactor; i >= 0; i--) {
-        if (n / (int)(pow(targetBase, i)) > 0) {
-            currentDigitValue = (n / (int)(pow(targetBase, i))) * (int)(pow(10, i));
-            n -= (int)(pow(targetBase, i));
-
-            result[currentDigit] = digitSymbols[currentDigitValue];
-            currentDigit++;
-        }
-    }
-
-    return result;
-}
-
-char GetDigitsDecimalToHexadecimal (int n) {
-    const int inputBase = 10, targetBase = 16;
-    int powerFactor;
+int GetDigitsDecimalToBinary (int n) {
+    const int inputBase = 10, targetBase = 2;
+    int powerFactor = 0;
     while (n / (int)(pow(targetBase, powerFactor)) > 0) {
         powerFactor++;
     }
